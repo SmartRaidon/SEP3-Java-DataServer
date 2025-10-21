@@ -1,6 +1,7 @@
 Create SCHEMA IF NOT EXISTS sep3;
 set SCHEMA 'sep3';
 drop schema sep3 cascade;
+
 Create table if not exists users(
     id serial PRIMARY KEY ,
     username varchar (30),
