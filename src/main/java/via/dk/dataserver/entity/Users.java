@@ -9,11 +9,11 @@ public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
-    @Column(name ="username",nullable = false)
+    @Column(name ="username", unique = true ,nullable = false)
     String username;
     @Column(name="password", nullable = false)
     String password;
-    @Column(name ="email", nullable = false)
+    @Column(name ="email", unique = true,nullable = false)
     String email;
     public void setUsername(String username) {
         //instead of StringUtility we used StringUtil if some errors later that may be the case
