@@ -17,7 +17,7 @@ public class Sep3JavaDataServerApplication
     User user = new User();
     user.setUsername("Mario");
     user.setPassword("asd123");
-    user.setEmail("mario@motherfucker.com");
+    user.setEmail("mario@mvp.com");
     userRepository.save(user);
   }
 }

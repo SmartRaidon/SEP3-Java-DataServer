@@ -18,6 +18,7 @@ message Response
 enum HandlerType
 {
   HANDLER_UNKNOWN = 0;
+  HANDLER_USER = 1; //maybe maybe
 }
 
 enum ActionType
