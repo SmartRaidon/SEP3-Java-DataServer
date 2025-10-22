@@ -4,6 +4,13 @@ package via.dk.dataserver.gRPC;
 
 import "google/protobuf/any.proto";
 
+message UserProto{
+  int32 id=1;
+  string username =2;
+  string password =3;
+  string email =4;
+}
+
 message Request
 {
   HandlerType handler = 1;
@@ -37,4 +44,10 @@ enum StatusType
   STATUS_OK = 1;
   STATUS_ERROR = 2;
   STATUS_INVALID_PAYLOAD = 3;
+}
+
+
+service homogeniousService
+{
+  rpc handleRequest(Request) returns (Response);
 }

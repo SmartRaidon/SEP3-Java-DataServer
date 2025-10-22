@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import via.dk.dataserver.entity.User;
-import via.dk.dataserver.repositories.UserRepository;
+import via.dk.dataserver.repository.UserRepository;
 
 @SpringBootApplication
 public class Sep3JavaDataServerApplication
