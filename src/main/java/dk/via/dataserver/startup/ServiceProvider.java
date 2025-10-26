@@ -1,11 +1,11 @@
-package via.dk.dataserver.startup;
+package dk.via.dataserver.startup;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
-import via.dk.dataserver.networking.handler.NetworkHandler;
-import via.dk.dataserver.networking.handler.UserHandler;
-import via.dk.dataserver.repository.UserRepository;
-import via.dk.dataserver.services.UserServiceDatabase;
+import dk.via.dataserver.networking.handler.NetworkHandler;
+import dk.via.dataserver.networking.handler.UserHandler;
+import dk.via.dataserver.repository.UserRepository;
+import dk.via.dataserver.services.UserServiceDatabase;
 
 @Service
 public class ServiceProvider {

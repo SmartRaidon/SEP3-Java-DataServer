@@ -1,4 +1,4 @@
-package via.dk.dataserver.networking;
+package dk.via.dataserver.networking;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;

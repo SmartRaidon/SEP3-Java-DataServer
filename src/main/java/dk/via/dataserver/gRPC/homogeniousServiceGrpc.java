@@ -1,4 +1,4 @@
-package via.dk.dataserver.gRPC;
+package dk.via.dataserver.gRPC;
 
 import static io.grpc.MethodDescriptor.generateFullMethodName;
 
@@ -12,32 +12,32 @@ public final class homogeniousServiceGrpc {
 
   private homogeniousServiceGrpc() {}
 
-  public static final java.lang.String SERVICE_NAME = "via.dk.dataserver.gRPC.homogeniousService";
+  public static final java.lang.String SERVICE_NAME = "dk.via.dataserver.gRPC.homogeniousService";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<via.dk.dataserver.gRPC.Sep3.Request,
-      via.dk.dataserver.gRPC.Sep3.Response> getHandleRequestMethod;
+  private static volatile io.grpc.MethodDescriptor<dk.via.dataserver.gRPC.Sep3.Request,
+      dk.via.dataserver.gRPC.Sep3.Response> getHandleRequestMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "handleRequest",
-      requestType = via.dk.dataserver.gRPC.Sep3.Request.class,
-      responseType = via.dk.dataserver.gRPC.Sep3.Response.class,
+      requestType = dk.via.dataserver.gRPC.Sep3.Request.class,
+      responseType = dk.via.dataserver.gRPC.Sep3.Response.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<via.dk.dataserver.gRPC.Sep3.Request,
-      via.dk.dataserver.gRPC.Sep3.Response> getHandleRequestMethod() {
-    io.grpc.MethodDescriptor<via.dk.dataserver.gRPC.Sep3.Request, via.dk.dataserver.gRPC.Sep3.Response> getHandleRequestMethod;
+  public static io.grpc.MethodDescriptor<dk.via.dataserver.gRPC.Sep3.Request,
+      dk.via.dataserver.gRPC.Sep3.Response> getHandleRequestMethod() {
+    io.grpc.MethodDescriptor<dk.via.dataserver.gRPC.Sep3.Request, dk.via.dataserver.gRPC.Sep3.Response> getHandleRequestMethod;
     if ((getHandleRequestMethod = homogeniousServiceGrpc.getHandleRequestMethod) == null) {
       synchronized (homogeniousServiceGrpc.class) {
         if ((getHandleRequestMethod = homogeniousServiceGrpc.getHandleRequestMethod) == null) {
           homogeniousServiceGrpc.getHandleRequestMethod = getHandleRequestMethod =
-              io.grpc.MethodDescriptor.<via.dk.dataserver.gRPC.Sep3.Request, via.dk.dataserver.gRPC.Sep3.Response>newBuilder()
+              io.grpc.MethodDescriptor.<dk.via.dataserver.gRPC.Sep3.Request, dk.via.dataserver.gRPC.Sep3.Response>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "handleRequest"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  via.dk.dataserver.gRPC.Sep3.Request.getDefaultInstance()))
+                  dk.via.dataserver.gRPC.Sep3.Request.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  via.dk.dataserver.gRPC.Sep3.Response.getDefaultInstance()))
+                  dk.via.dataserver.gRPC.Sep3.Response.getDefaultInstance()))
               .setSchemaDescriptor(new homogeniousServiceMethodDescriptorSupplier("handleRequest"))
               .build();
         }
@@ -96,8 +96,8 @@ public final class homogeniousServiceGrpc {
 
     /**
      */
-    default void handleRequest(via.dk.dataserver.gRPC.Sep3.Request request,
-        io.grpc.stub.StreamObserver<via.dk.dataserver.gRPC.Sep3.Response> responseObserver) {
+    default void handleRequest(dk.via.dataserver.gRPC.Sep3.Request request,
+        io.grpc.stub.StreamObserver<dk.via.dataserver.gRPC.Sep3.Response> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getHandleRequestMethod(), responseObserver);
     }
   }
@@ -131,8 +131,8 @@ public final class homogeniousServiceGrpc {
 
     /**
      */
-    public void handleRequest(via.dk.dataserver.gRPC.Sep3.Request request,
-        io.grpc.stub.StreamObserver<via.dk.dataserver.gRPC.Sep3.Response> responseObserver) {
+    public void handleRequest(dk.via.dataserver.gRPC.Sep3.Request request,
+        io.grpc.stub.StreamObserver<dk.via.dataserver.gRPC.Sep3.Response> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getHandleRequestMethod(), getCallOptions()), request, responseObserver);
     }
@@ -156,7 +156,7 @@ public final class homogeniousServiceGrpc {
 
     /**
      */
-    public via.dk.dataserver.gRPC.Sep3.Response handleRequest(via.dk.dataserver.gRPC.Sep3.Request request) {
+    public dk.via.dataserver.gRPC.Sep3.Response handleRequest(dk.via.dataserver.gRPC.Sep3.Request request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getHandleRequestMethod(), getCallOptions(), request);
     }
@@ -180,8 +180,8 @@ public final class homogeniousServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<via.dk.dataserver.gRPC.Sep3.Response> handleRequest(
-        via.dk.dataserver.gRPC.Sep3.Request request) {
+    public com.google.common.util.concurrent.ListenableFuture<dk.via.dataserver.gRPC.Sep3.Response> handleRequest(
+        dk.via.dataserver.gRPC.Sep3.Request request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getHandleRequestMethod(), getCallOptions()), request);
     }
@@ -207,8 +207,8 @@ public final class homogeniousServiceGrpc {
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_HANDLE_REQUEST:
-          serviceImpl.handleRequest((via.dk.dataserver.gRPC.Sep3.Request) request,
-              (io.grpc.stub.StreamObserver<via.dk.dataserver.gRPC.Sep3.Response>) responseObserver);
+          serviceImpl.handleRequest((dk.via.dataserver.gRPC.Sep3.Request) request,
+              (io.grpc.stub.StreamObserver<dk.via.dataserver.gRPC.Sep3.Response>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -232,8 +232,8 @@ public final class homogeniousServiceGrpc {
           getHandleRequestMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
-              via.dk.dataserver.gRPC.Sep3.Request,
-              via.dk.dataserver.gRPC.Sep3.Response>(
+              dk.via.dataserver.gRPC.Sep3.Request,
+              dk.via.dataserver.gRPC.Sep3.Response>(
                 service, METHODID_HANDLE_REQUEST)))
         .build();
   }
@@ -244,7 +244,7 @@ public final class homogeniousServiceGrpc {
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
-      return via.dk.dataserver.gRPC.Sep3.getDescriptor();
+      return dk.via.dataserver.gRPC.Sep3.getDescriptor();
     }
 
     @java.lang.Override

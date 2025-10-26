@@ -1,4 +1,4 @@
-package via.dk.dataserver.entity;
+package dk.via.dataserver.entity;
 
 import io.grpc.netty.shaded.io.netty.util.internal.StringUtil;
 import jakarta.persistence.*;

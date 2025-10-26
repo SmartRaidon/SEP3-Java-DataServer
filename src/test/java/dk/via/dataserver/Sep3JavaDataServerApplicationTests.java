@@ -1,4 +1,4 @@
-package via.dk.dataserver;
+package dk.via.dataserver;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

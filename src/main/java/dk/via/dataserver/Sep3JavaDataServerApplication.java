@@ -1,10 +1,10 @@
-package via.dk.dataserver;
+package dk.via.dataserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import via.dk.dataserver.entity.User;
-import via.dk.dataserver.repository.UserRepository;
+import dk.via.dataserver.entity.User;
+import dk.via.dataserver.repository.UserRepository;
 
 @SpringBootApplication
 public class Sep3JavaDataServerApplication

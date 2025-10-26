@@ -1,14 +1,14 @@
-package via.dk.dataserver.networking;
+package dk.via.dataserver.networking;
 
 import com.google.protobuf.Any;
 import com.google.protobuf.Message;
 import com.google.protobuf.StringValue;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
-import via.dk.dataserver.gRPC.Sep3;
-import via.dk.dataserver.networking.handler.NetworkHandler;
-import via.dk.dataserver.startup.ServiceProvider;
-import via.dk.dataserver.gRPC.homogeniousServiceGrpc;
+import dk.via.dataserver.gRPC.Sep3;
+import dk.via.dataserver.networking.handler.NetworkHandler;
+import dk.via.dataserver.startup.ServiceProvider;
+import dk.via.dataserver.gRPC.homogeniousServiceGrpc;
 
 @GRpcService
 public class MainHandler extends homogeniousServiceGrpc.homogeniousServiceImplBase {

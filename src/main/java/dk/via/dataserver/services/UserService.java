@@ -1,7 +1,7 @@
-package via.dk.dataserver.services;
+package dk.via.dataserver.services;
 
 import org.springframework.stereotype.Service;
-import via.dk.dataserver.gRPC.Sep3;
+import dk.via.dataserver.gRPC.Sep3;
 
 @Service
 public interface UserService {

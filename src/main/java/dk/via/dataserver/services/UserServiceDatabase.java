@@ -1,10 +1,10 @@
-package via.dk.dataserver.services;
+package dk.via.dataserver.services;
 
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-import via.dk.dataserver.entity.User;
-import via.dk.dataserver.gRPC.Sep3;
-import via.dk.dataserver.repository.UserRepository;
+import dk.via.dataserver.entity.User;
+import dk.via.dataserver.gRPC.Sep3;
+import dk.via.dataserver.repository.UserRepository;
 
 import java.util.List;
 import java.util.Optional;

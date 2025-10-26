@@ -1,9 +1,9 @@
-package via.dk.dataserver.networking.handler;
+package dk.via.dataserver.networking.handler;
 
 import com.google.protobuf.Any;
 import com.google.protobuf.Message;
-import via.dk.dataserver.gRPC.Sep3;
-import via.dk.dataserver.services.UserService;
+import dk.via.dataserver.gRPC.Sep3;
+import dk.via.dataserver.services.UserService;
 
 public class UserHandler implements NetworkHandler {
     private UserService userService;
