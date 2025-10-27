@@ -29,13 +29,14 @@ public class UserHandler implements NetworkHandler {
                 handleDelete(request);
             }
             case Sep3.ActionType.ACTION_LIST -> {
-                proto = Any.pack((Message)userService.getAll());
+                proto = (Message)userService.getAll();
             }
             default -> {
                 throw new IllegalArgumentException("Invalid action type: " + actionType);
         }
     }
-        return Any.pack(proto) ;
+        // Return proto directly, MainHandler will wrap it in Any
+        return proto;
 }
 
     private void handleDelete(Sep3.UserProto request) {

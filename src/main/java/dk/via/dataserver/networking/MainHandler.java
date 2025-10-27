@@ -29,7 +29,15 @@ public class MainHandler extends homogeniousServiceGrpc.homogeniousServiceImplBa
          };
         Message result = null;
         try {
-            result = handler.handle(request.getAction(),request.getPayload());
+            // Unpack the payload based on handler type
+            Message payload = null;
+            switch(request.getHandler()) {
+                case HANDLER_USER -> {
+                    payload = request.getPayload().unpack(Sep3.UserProto.class);
+                }
+                default -> payload = request.getPayload();
+            }
+            result = handler.handle(request.getAction(), payload);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
