@@ -11,7 +11,9 @@ import java.util.Optional;
 
 @Service("Sep3-Java-DataServer")
 public class UserServiceDatabase implements UserService {
+
     private final UserRepository userRepository;
+
     public UserServiceDatabase(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -22,28 +24,36 @@ public class UserServiceDatabase implements UserService {
         user.setUsername(payload.getUsername());
         user.setPassword(payload.getPassword());
         user.setEmail(payload.getEmail());
+        user.setScore(payload.getScore());
        User savedUser = userRepository.save(user);
 
         return Sep3.UserProto.newBuilder()
                 .setId(savedUser.getId())
                 .setUsername(savedUser.getUsername())
                 .setPassword(savedUser.getPassword())
-                .setEmail(savedUser.getEmail()).build();
+                .setEmail(savedUser.getEmail())
+                .setScore(savedUser.getScore())
+                .build();
     }
 
     @Transactional
     public Sep3.UserProto update(Sep3.UserProto payload)  {
         User existingUser = userRepository.findByUsername(
-                payload.getUsername()).orElseThrow(() -> new RuntimeException("Company not found"));
+                payload.getUsername()).orElseThrow(() -> new RuntimeException("Username not found"));
 
 
         existingUser.setUsername(payload.getUsername());
         existingUser.setPassword(payload.getPassword());
+        existingUser.setScore(payload.getScore());
+
         User updatedUser = userRepository.save(existingUser);
         return Sep3.UserProto.newBuilder()
                 .setId(updatedUser.getId())
                 .setUsername(updatedUser.getUsername())
-                .setPassword(updatedUser.getPassword()).setEmail(updatedUser.getEmail()).build();
+                .setPassword(updatedUser.getPassword())
+                .setEmail(updatedUser.getEmail())
+                .setScore(updatedUser.getScore())
+                .build();
     }
 
     @Override
@@ -51,15 +61,15 @@ public class UserServiceDatabase implements UserService {
         Optional<User> fetchUser = userRepository.findByEmail(email);
 
         User user = fetchUser.orElseThrow(
-                () -> new Exception("User with given email doesnt exist"+ email)
+                () -> new Exception("User with given email does not exist "+ email)
         );
         return Sep3.UserProto.newBuilder()
+                .setId(user.getId())
                 .setUsername(user.getUsername())
                 .setPassword(user.getPassword())
                 .setEmail(user.getEmail())
-                .setId(user.getId()).build();
-
-
+                .setScore(user.getScore())
+                .build();
     }
 
 
@@ -72,8 +82,14 @@ public class UserServiceDatabase implements UserService {
     public Iterable<Sep3.UserProto> getAll() {
        List<User> users = userRepository.findAll();
        Iterable<Sep3.UserProto> userProto;
-        userProto = users.stream().map(
-                user -> Sep3.UserProto.newBuilder().setId(user.getId()).setUsername(user.getUsername()).setPassword(user.getPassword()).setEmail(user.getEmail()).build()).toList();
+        userProto = users.stream()
+                .map(user -> Sep3.UserProto.newBuilder()
+                        .setId(user.getId())
+                        .setUsername(user.getUsername())
+                        .setPassword(user.getPassword())
+                        .setEmail(user.getEmail())
+                        .setScore(user.getScore())
+                        .build()).toList();
         return userProto;
     }
 }

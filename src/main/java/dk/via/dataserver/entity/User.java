@@ -15,6 +15,8 @@ public class User {
     String password;
     @Column(name ="email", unique = true,nullable = false)
     String email;
+    @Column(name = "score")
+    Double score;
     public void setUsername(String username) {
         //instead of StringUtility we used StringUtil if some errors later that may be the case
 
@@ -53,5 +55,13 @@ public class User {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Double getScore() {
+        return score;
+    }
+
+    public void setScore(Double score) {
+        this.score = score;
     }
 }
