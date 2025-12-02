@@ -9,5 +9,9 @@ public interface GameResultService {
 
     Sep3.GameResultProto getByGameId(int gameId) throws Exception;
 
+    Sep3.GameResultProto update (Sep3.GameResultProto payload);
+
+    void delete(int id);
+
     Iterable<Sep3.GameResultProto> getAll();
 }

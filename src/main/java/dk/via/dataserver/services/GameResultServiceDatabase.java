@@ -17,6 +17,7 @@ public class GameResultServiceDatabase implements GameResultService{
         this.gameResultRepository = gameResultRepository;
     }
 
+    @Override
     @Transactional
     public Sep3.GameResultProto create(Sep3.GameResultProto payload) {
         GameResult gameResult = new GameResult();
@@ -36,15 +37,44 @@ public class GameResultServiceDatabase implements GameResultService{
     }
 
     @Override
+    @Transactional
+    public Sep3.GameResultProto update(Sep3.GameResultProto payload) {
+        GameResult existingGameResult = gameResultRepository.findByGameId(
+                payload.getGameId()).orElseThrow( () -> new RuntimeException("Game not found"));
+
+        existingGameResult.setGameId(payload.getGameId());
+        existingGameResult.setWinnerId(payload.getWinnerId());
+        existingGameResult.setLooserId(payload.getLooserId());
+        existingGameResult.setDraw(payload.getIsDraw());
+
+        GameResult updatedGameResult = gameResultRepository.save(existingGameResult);
+
+        return Sep3.GameResultProto.newBuilder()
+                .setId(updatedGameResult.getId())
+                .setGameId(updatedGameResult.getGameId())
+                .setWinnerId(updatedGameResult.getWinnerId())
+                .setLooserId(updatedGameResult.getLooserId())
+                .setIsDraw(updatedGameResult.getDraw()).build();
+    }
+
+    @Override
     public Sep3.GameResultProto getByGameId(int gameId) throws Exception {
     GameResult gameById = gameResultRepository.findByGameId(gameId)
             .orElseThrow( () -> new Exception("Game result with game id " + gameId + " not found"));
 
     return Sep3.GameResultProto.newBuilder()
+            .setId(gameById.getId())
             .setGameId(gameById.getGameId())
             .setWinnerId(gameById.getWinnerId())
             .setLooserId(gameById.getLooserId())
             .setIsDraw(gameById.getDraw()).build();
+    }
+
+
+
+    @Override
+    public void delete(int id) {
+        gameResultRepository.deleteById(id);
     }
 
     @Override
