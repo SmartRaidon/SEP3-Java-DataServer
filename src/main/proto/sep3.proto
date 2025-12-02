@@ -12,6 +12,10 @@ message UserProto{
   double score = 5;
 }
 
+message UserListProto{
+  repeated UserProto users = 1;
+}
+
 message GameResultProto{
   int32 id = 1;
   int32 gameId = 2;
