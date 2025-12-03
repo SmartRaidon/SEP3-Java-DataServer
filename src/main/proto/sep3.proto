@@ -12,10 +12,6 @@ message UserProto{
   double score = 5;
 }
 
-message UserListProto{
-  repeated UserProto users = 1;
-}
-
 message GameResultProto{
   int32 id = 1;
   int32 gameId = 2;
@@ -23,6 +19,12 @@ message GameResultProto{
   int32 looserId = 4;
   bool isDraw = 5;
 }
+
+message ScoreProto {
+  int32 id = 1;
+  double score = 2;
+}
+
 
 message Request
 {
@@ -40,6 +42,7 @@ enum HandlerType
   HANDLER_UNKNOWN = 0;
   HANDLER_USER = 1; //maybe maybe
   HANDLER_GAME_RESULT = 2;
+  HANDLER_SCORE = 3;
 }
 
 enum ActionType

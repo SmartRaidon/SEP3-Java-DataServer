@@ -19,20 +19,12 @@ public class GameResultHandler implements NetworkHandler {
 
         switch (actionType) {
 
-            case ACTION_CREATE -> {
-                proto = gameResultService.create(request);
-            }
-
             case ACTION_GET -> {
                 proto = gameResultService.getByGameId(request.getGameId());
             }
 
-            case ACTION_UPDATE -> {
-                proto = gameResultService.update(request);
-            }
-
-            case ACTION_DELETE -> {
-                handleDelete(request);
+            case ACTION_CREATE -> {
+                proto = gameResultService.create(request);
             }
 
             case ACTION_LIST -> {
@@ -43,14 +35,5 @@ public class GameResultHandler implements NetworkHandler {
         }
 
         return proto;
-    }
-
-    private void handleDelete(Sep3.GameResultProto request) {
-        if (request.getId() != 0) {
-            gameResultService.delete(request.getId());
-        }
-        else {
-            throw new IllegalArgumentException("Must provide an ID number for ACTION_DELETE.");
-        }
     }
 }

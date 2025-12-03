@@ -10,11 +10,11 @@ public class GameResult {
   Integer id;
   @Column(name = "gameID", unique = true, nullable = false)
   Integer gameId;
-  @Column(name = "winnerID", nullable = false)
+  @Column(name = "winnerID", unique = true, nullable = false)
   Integer winnerId;
-  @Column(name = "looserID", nullable = false)
+  @Column(name = "looserID", unique = true, nullable = false)
   Integer looserId;
-  @Column(name = "isDraw", nullable = false)
+  @Column(name = "isDraw", unique = true, nullable = false)
   Boolean isDraw;
 
     public Integer getId() {

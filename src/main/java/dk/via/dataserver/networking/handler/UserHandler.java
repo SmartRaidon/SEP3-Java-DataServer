@@ -16,25 +16,20 @@ public class UserHandler implements NetworkHandler {
         Message proto =null;
         Sep3.UserProto request = (Sep3.UserProto) payload;
         switch (actionType) {
-
-            case ACTION_CREATE -> {
-                proto = userService.create(request);
-            }
-
             case ACTION_GET -> {
                 proto = handleGet(request);
             }
-
+            case ACTION_CREATE -> {
+                proto = userService.create(request);
+            }
             case ACTION_UPDATE -> {
                 proto = userService.update(request);
             }
-
             case ACTION_DELETE -> {
                 handleDelete(request);
             }
-
             case Sep3.ActionType.ACTION_LIST -> {
-                proto = userService.getAll();
+                proto = (Message)userService.getAll();
             }
             default -> {
                 throw new IllegalArgumentException("Invalid action type: " + actionType);
