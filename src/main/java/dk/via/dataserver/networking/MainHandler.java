@@ -31,6 +31,7 @@ public class MainHandler extends homogeniousServiceGrpc.homogeniousServiceImplBa
         try {
             //unpack payload
             Message payload = switch (request.getHandler()) {
+                //unpack to concrete type that the handler expects
                 case HANDLER_USER -> request.getPayload().unpack(Sep3.UserProto.class);
                 case HANDLER_GAME_RESULT -> request.getPayload().unpack(Sep3.GameResultProto.class);
                 default -> request.getPayload();
@@ -47,7 +48,6 @@ public class MainHandler extends homogeniousServiceGrpc.homogeniousServiceImplBa
             }
 
         } catch (Exception e) {
-            //send an error response instead of throwing
             sendGrpcError(responseObserver, Sep3.StatusType.STATUS_ERROR, e.getMessage());
             return;
         }

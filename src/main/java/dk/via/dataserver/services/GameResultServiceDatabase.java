@@ -69,7 +69,7 @@ public class GameResultServiceDatabase implements GameResultService{
 
     @Override
     public void delete(int id) {
-        gameResultRepository.findByGameId(id);
+        gameResultRepository.deleteById(id);
     }
 
     @Override
@@ -78,13 +78,13 @@ public class GameResultServiceDatabase implements GameResultService{
 
         Sep3.GameResultListProto.Builder builder = Sep3.GameResultListProto.newBuilder();
 
-        gameResults.forEach(gr -> builder.addGameResults(
+        gameResults.forEach(gameResult -> builder.addGameResults(
                 Sep3.GameResultProto.newBuilder()
-                        .setId(gr.getId())
-                        .setGameId(gr.getGameId())
-                        .setWinnerId(gr.getWinnerId())
-                        .setLooserId(gr.getLooserId())
-                        .setIsDraw(gr.getDraw())
+                        .setId(gameResult.getId())
+                        .setGameId(gameResult.getGameId())
+                        .setWinnerId(gameResult.getWinnerId())
+                        .setLooserId(gameResult.getLooserId())
+                        .setIsDraw(gameResult.getDraw())
                         .build()
         ));
 

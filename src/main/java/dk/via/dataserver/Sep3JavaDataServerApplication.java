@@ -1,5 +1,6 @@
 package dk.via.dataserver;
 
+import dk.via.dataserver.gRPC.Sep3;
 import dk.via.dataserver.networking.MainHandler;
 import dk.via.dataserver.networking.SepServer;
 import dk.via.dataserver.startup.GlobalContext;
@@ -23,7 +24,11 @@ public class Sep3JavaDataServerApplication
   {
     GlobalContext.setContext(SpringApplication.run(Sep3JavaDataServerApplication.class,args));
     //ApplicationContext context = SpringApplication.run(Sep3JavaDataServerApplication.class, args);
-    UserRepository userRepository = GlobalContext.getBean(UserRepository.class);
+
+      System.out.println(Sep3.UserProto.getDescriptor().getFullName()); //for getting full proto type, BloomRoc
+      System.out.println(Sep3.GameResultProto.getDescriptor().getFullName());
+
+      UserRepository userRepository = GlobalContext.getBean(UserRepository.class);
     SepServer server = GlobalContext.getContext().getBean(SepServer.class);
     server.start();
     System.out.println("Server started");

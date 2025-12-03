@@ -6,7 +6,7 @@ DROP SCHEMA sep3 CASCADE;
 CREATE TABLE IF NOT EXISTS users(
     id SERIAL PRIMARY KEY ,
     username VARCHAR (30),
-    password VARCHAR (30),
+    password VARCHAR (50),
     email TEXT,
     score DOUBLE PRECISION
     );
