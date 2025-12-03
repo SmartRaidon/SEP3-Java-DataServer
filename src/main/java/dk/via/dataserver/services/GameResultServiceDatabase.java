@@ -35,16 +35,41 @@ public class GameResultServiceDatabase implements GameResultService{
                 .setIsDraw(savedGameResult.getDraw()).build();
     }
 
+    @Transactional
+    public Sep3.GameResultProto update(Sep3.GameResultProto payload) {
+        GameResult existingGameResult = gameResultRepository.findByGameId(
+                payload.getGameId()).orElseThrow( () -> new RuntimeException("Game not found"));
+
+        existingGameResult.setGameId(payload.getGameId());
+        existingGameResult.setWinnerId(payload.getWinnerId());
+        existingGameResult.setLooserId(payload.getLooserId());
+        existingGameResult.setDraw(payload.getIsDraw());
+
+        GameResult updatedGameResult = gameResultRepository.save(existingGameResult);
+
+        return Sep3.GameResultProto.newBuilder()
+                .setId(updatedGameResult.getId())
+                .setGameId(updatedGameResult.getGameId())
+                .setWinnerId(updatedGameResult.getWinnerId())
+                .setLooserId(updatedGameResult.getLooserId())
+                .setIsDraw(updatedGameResult.getDraw()).build();
+    }
+
     @Override
     public Sep3.GameResultProto getByGameId(int gameId) throws Exception {
-    GameResult gameById = gameResultRepository.findByGameId(gameId)
-            .orElseThrow( () -> new Exception("Game result with game id " + gameId + " not found"));
+        GameResult gameById = gameResultRepository.findByGameId(gameId)
+                .orElseThrow( () -> new Exception("Game result with game id " + gameId + " not found"));
 
-    return Sep3.GameResultProto.newBuilder()
-            .setGameId(gameById.getGameId())
-            .setWinnerId(gameById.getWinnerId())
-            .setLooserId(gameById.getLooserId())
-            .setIsDraw(gameById.getDraw()).build();
+        return Sep3.GameResultProto.newBuilder()
+                .setGameId(gameById.getGameId())
+                .setWinnerId(gameById.getWinnerId())
+                .setLooserId(gameById.getLooserId())
+                .setIsDraw(gameById.getDraw()).build();
+    }
+
+    @Override
+    public void delete(int id) {
+        gameResultRepository.findByGameId(id);
     }
 
     @Override
@@ -53,17 +78,18 @@ public class GameResultServiceDatabase implements GameResultService{
 
         Sep3.GameResultListProto.Builder builder = Sep3.GameResultListProto.newBuilder();
 
-        gameResults.forEach(gameResult -> {
-            builder.addGameResults(
-                    Sep3.GameResultProto.newBuilder()
-                            .setId(gameResult.getId())
-                            .setGameId(gameResult.getGameId())
-                            .setWinnerId(gameResult.getWinnerId())
-                            .setLooserId(gameResult.getLooserId())
-                            .setIsDraw(gameResult.getDraw())
-                            .build()
-            );
-        });
+        gameResults.forEach(gr -> builder.addGameResults(
+                Sep3.GameResultProto.newBuilder()
+                        .setId(gr.getId())
+                        .setGameId(gr.getGameId())
+                        .setWinnerId(gr.getWinnerId())
+                        .setLooserId(gr.getLooserId())
+                        .setIsDraw(gr.getDraw())
+                        .build()
+        ));
+
         return builder.build();
     }
+
 }
+

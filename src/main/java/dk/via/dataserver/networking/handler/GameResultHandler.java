@@ -28,8 +28,9 @@ public class GameResultHandler implements NetworkHandler {
             }
 
             case ACTION_LIST -> {
-                proto = (Message) gameResultService.getAll();
+                proto = gameResultService.getAll();  //returns GameResultListProto
             }
+
 
             default -> throw new IllegalArgumentException("Invalid action type: " + actionType);
         }
