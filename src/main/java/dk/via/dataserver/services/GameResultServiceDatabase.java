@@ -78,19 +78,22 @@ public class GameResultServiceDatabase implements GameResultService{
     }
 
     @Override
-    public Iterable<Sep3.GameResultProto> getAll() {
-
+    public Sep3.GameResultListProto getAll() {
         List<GameResult> gameResults = gameResultRepository.findAll();
 
-        Iterable<Sep3.GameResultProto> gameResultProto;
+        Sep3.GameResultListProto.Builder builder = Sep3.GameResultListProto.newBuilder();
 
-        gameResultProto = gameResults.stream().map(
-                gameResult -> Sep3.GameResultProto.newBuilder()
-                .setId(gameResult.getId())
-                .setGameId(gameResult.getGameId())
-                .setWinnerId(gameResult.getWinnerId())
-                .setLooserId(gameResult.getLooserId())
-                .setIsDraw(gameResult.getDraw()).build()).toList();
-        return gameResultProto;
+        gameResults.forEach(gameResult -> {
+            builder.addGameResults(
+                    Sep3.GameResultProto.newBuilder()
+                            .setId(gameResult.getId())
+                            .setGameId(gameResult.getGameId())
+                            .setWinnerId(gameResult.getWinnerId())
+                            .setLooserId(gameResult.getLooserId())
+                            .setIsDraw(gameResult.getDraw())
+                            .build()
+            );
+        });
+        return builder.build();
     }
 }

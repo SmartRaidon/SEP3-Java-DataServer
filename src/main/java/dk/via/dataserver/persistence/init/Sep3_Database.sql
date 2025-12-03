@@ -13,5 +13,4 @@ drop table users;
 
 INSERT INTO users(username, password, email) VALUES ('example','example123','email@example.com');
 
-UPDATE sep3.users SET score = 0 WHERE score IS NULL;
 

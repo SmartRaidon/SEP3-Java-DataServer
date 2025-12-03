@@ -13,5 +13,5 @@ public interface GameResultService {
 
     void delete(int id);
 
-    Iterable<Sep3.GameResultProto> getAll();
+    Sep3.GameResultListProto getAll();
 }
