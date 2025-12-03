@@ -13,13 +13,13 @@ CREATE TABLE IF NOT EXISTS users(
 
 CREATE TABLE game_results (
     id SERIAL PRIMARY KEY,
-    gameID INTEGER NOT NULL UNIQUE,
-    winnerID INTEGER NOT NULL,
-    looserID INTEGER NOT NULL,
-    isDraw BOOLEAN NOT NULL
+    game_id INTEGER NOT NULL UNIQUE,
+    winner_id INTEGER NOT NULL,
+    looser_id INTEGER NOT NULL,
+    is_draw BOOLEAN NOT NULL
 );
 
-drop table users;
+drop table game_results;
 
 INSERT INTO users(username, password, email) VALUES ('example','example123','email@example.com');
 

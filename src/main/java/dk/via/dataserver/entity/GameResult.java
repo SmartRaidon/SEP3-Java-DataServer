@@ -8,13 +8,13 @@ public class GameResult {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   Integer id;
-  @Column(name = "gameID", unique = true, nullable = false)
+  @Column(name = "game_id", unique = true, nullable = false)
   Integer gameId;
-  @Column(name = "winnerID", nullable = false)
+  @Column(name = "winner_id", nullable = false)
   Integer winnerId;
-  @Column(name = "looserID", nullable = false)
+  @Column(name = "looser_id", nullable = false)
   Integer looserId;
-  @Column(name = "isDraw", nullable = false)
+  @Column(name = "is_draw")
   Boolean isDraw;
 
     public Integer getId() {

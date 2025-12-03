@@ -27,6 +27,10 @@ public class UserHandler implements NetworkHandler {
             }
             case ACTION_DELETE -> {
                 handleDelete(request);
+
+                proto = Sep3.UserProto.newBuilder()
+                        .setId(request.getId())
+                        .build();
             }
             case Sep3.ActionType.ACTION_LIST -> {
                 proto = userService.getAll();

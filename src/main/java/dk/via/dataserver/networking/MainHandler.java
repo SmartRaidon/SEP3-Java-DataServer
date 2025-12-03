@@ -21,35 +21,45 @@ public class MainHandler extends homogeniousServiceGrpc.homogeniousServiceImplBa
 
     @Override
     public void handleRequest(Sep3.Request request, StreamObserver<Sep3.Response> responseObserver) {
-        Sep3.Response.Builder responseBuilder = Sep3.Response.newBuilder();
-         NetworkHandler handler = switch(request.getHandler()){
+        NetworkHandler handler = switch (request.getHandler()) {
+            case HANDLER_USER -> serviceProvider.getUserHandler();
+            case HANDLER_GAME_RESULT -> serviceProvider.getGameResultHandler();
+            default -> throw new IllegalArgumentException("Unknown handler type " + request.getHandler());
+        };
 
-             case HANDLER_USER -> serviceProvider.getUserHandler();
-             case HANDLER_GAME_RESULT -> serviceProvider.getGameResultHandler();
-             default -> throw new IllegalArgumentException("Unknown handler type");
-         };
-        Message result = null;
+        Message result;
         try {
-            // Unpack the payload based on handler type
-            Message payload = null;
-            switch(request.getHandler()) {
-                case HANDLER_USER -> {
-                    payload = request.getPayload().unpack(Sep3.UserProto.class);
-                }
-                case HANDLER_GAME_RESULT -> {
-                    payload = request.getPayload().unpack(Sep3.GameResultProto.class);
-                }
-                default -> payload = request.getPayload();
-            }
-            result = handler.handle(request.getAction(), payload);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        Sep3.Response response = Sep3.Response.newBuilder().setStatus(Sep3.StatusType.STATUS_OK)
-                .setPayload(Any.pack(result)).build();
+            //unpack payload
+            Message payload = switch (request.getHandler()) {
+                case HANDLER_USER -> request.getPayload().unpack(Sep3.UserProto.class);
+                case HANDLER_GAME_RESULT -> request.getPayload().unpack(Sep3.GameResultProto.class);
+                default -> request.getPayload();
+            };
 
-        sendResponseWithHandleException(responseObserver,response);//Send with error handling
+            result = handler.handle(request.getAction(), payload);
+
+            //against null handlers
+            if (result == null) {
+                sendGrpcError(responseObserver,
+                        Sep3.StatusType.STATUS_ERROR,
+                        "Handler returned no payload for action " + request.getAction());
+                return;
+            }
+
+        } catch (Exception e) {
+            //send an error response instead of throwing
+            sendGrpcError(responseObserver, Sep3.StatusType.STATUS_ERROR, e.getMessage());
+            return;
+        }
+
+        Sep3.Response response = Sep3.Response.newBuilder()
+                .setStatus(Sep3.StatusType.STATUS_OK)
+                .setPayload(Any.pack(result))
+                .build();
+
+        sendResponseWithHandleException(responseObserver, response);
     }
+
 
     private void sendResponseWithHandleException(StreamObserver<Sep3.Response> responseObserver, Sep3.Response response) {
         try {
