@@ -27,15 +27,12 @@ public class UserServiceDatabase implements UserService {
         user.setScore(payload.getScore());
        User savedUser = userRepository.save(user);
 
-        //whenever dbs returns null
-        double score = savedUser.getScore() != null ? savedUser.getScore() : 0.0;
-
         return Sep3.UserProto.newBuilder()
                 .setId(savedUser.getId())
                 .setUsername(savedUser.getUsername())
                 .setPassword(savedUser.getPassword())
                 .setEmail(savedUser.getEmail())
-                .setScore(score)
+                .setScore(savedUser.getScore())
                 .build();
     }
 
@@ -50,15 +47,12 @@ public class UserServiceDatabase implements UserService {
         existingUser.setScore(payload.getScore());
 
         User updatedUser = userRepository.save(existingUser);
-
-        double score = updatedUser.getScore() != null ? updatedUser.getScore() : 0.0;
-
         return Sep3.UserProto.newBuilder()
                 .setId(updatedUser.getId())
                 .setUsername(updatedUser.getUsername())
                 .setPassword(updatedUser.getPassword())
                 .setEmail(updatedUser.getEmail())
-                .setScore(score)
+                .setScore(updatedUser.getScore())
                 .build();
     }
 
@@ -69,15 +63,12 @@ public class UserServiceDatabase implements UserService {
         User user = fetchUser.orElseThrow(
                 () -> new Exception("User with given email does not exist "+ email)
         );
-
-        double score = user.getScore() != null ? user.getScore() : 0.0;
-
         return Sep3.UserProto.newBuilder()
                 .setId(user.getId())
                 .setUsername(user.getUsername())
                 .setPassword(user.getPassword())
                 .setEmail(user.getEmail())
-                .setScore(score)
+                .setScore(user.getScore())
                 .build();
     }
 
@@ -88,25 +79,17 @@ public class UserServiceDatabase implements UserService {
     }
 
     @Override
-    public Sep3.UserListProto getAll() {
+    public Iterable<Sep3.UserProto> getAll() {
        List<User> users = userRepository.findAll();
-
-       Sep3.UserListProto.Builder builder = Sep3.UserListProto.newBuilder();
-
-        users.forEach(user -> {
-            double score = user.getScore() != null ? user.getScore() : 0.0;
-
-            builder.addUsers(
-                    Sep3.UserProto.newBuilder()
-                            .setId(user.getId())
-                            .setUsername(user.getUsername())
-                            .setPassword(user.getPassword())
-                            .setEmail(user.getEmail())
-                            .setScore(score)
-                            .build()
-            );
-        });
-
-        return builder.build();
+       Iterable<Sep3.UserProto> userProto;
+        userProto = users.stream()
+                .map(user -> Sep3.UserProto.newBuilder()
+                        .setId(user.getId())
+                        .setUsername(user.getUsername())
+                        .setPassword(user.getPassword())
+                        .setEmail(user.getEmail())
+                        .setScore(user.getScore())
+                        .build()).toList();
+        return userProto;
     }
 }

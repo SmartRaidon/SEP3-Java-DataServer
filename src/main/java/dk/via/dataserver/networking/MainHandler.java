@@ -15,19 +15,18 @@ public class MainHandler extends homogeniousServiceGrpc.homogeniousServiceImplBa
 
 
     private final ServiceProvider serviceProvider;
-
     public MainHandler(ServiceProvider serviceProvider) {
         this.serviceProvider = serviceProvider;
     }
 
     @Override
     public void handleRequest(Sep3.Request request, StreamObserver<Sep3.Response> responseObserver) {
-
+        Sep3.Response.Builder responseBuilder = Sep3.Response.newBuilder();
          NetworkHandler handler = switch(request.getHandler()){
 
              case HANDLER_USER -> serviceProvider.getUserHandler();
              case HANDLER_GAME_RESULT -> serviceProvider.getGameResultHandler();
-             default -> throw new IllegalArgumentException("Unknown handler type" + request.getHandler());
+             default -> throw new IllegalArgumentException("Unknown handler type");
          };
         Message result = null;
         try {
