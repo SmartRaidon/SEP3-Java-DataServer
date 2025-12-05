@@ -15,8 +15,8 @@ public class User {
     String password;
     @Column(name ="email", unique = true,nullable = false)
     String email;
-    @Column(name = "score")
-    Double score;
+    @Column(name = "points")
+    Integer points;
     public void setUsername(String username) {
         //instead of StringUtility we used StringUtil if some errors later that may be the case
 
@@ -57,11 +57,11 @@ public class User {
         this.id = id;
     }
 
-    public Double getScore() {
-        return score;
+    public Integer getPoints() {
+        return points;
     }
 
-    public void setScore(Double score) {
-        this.score = score;
+    public void setPoints(Integer points) {
+        this.points = points;
     }
 }

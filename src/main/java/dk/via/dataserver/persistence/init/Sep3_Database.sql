@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS users(
     username VARCHAR (30) NOT NULL UNIQUE ,
     password VARCHAR (50) NOT NULL ,
     email TEXT NOT NULL UNIQUE ,
-    points DOUBLE PRECISION
+    points INTEGER
     );
 
 drop table users;

@@ -23,19 +23,19 @@ public class UserServiceDatabase implements UserService {
         user.setUsername(payload.getUsername());
         user.setPassword(payload.getPassword());
         user.setEmail(payload.getEmail());
-        user.setScore(payload.getScore());
+        user.setPoints(payload.getPoints());
 
         User savedUser = userRepository.save(user);
 
         //in the case dbs still return null
-        double score = savedUser.getScore() != null ? savedUser.getScore() : 0.0;
+        int points = savedUser.getPoints() != null ? savedUser.getPoints() : 0;
 
         return Sep3.UserProto.newBuilder()
                 .setId(savedUser.getId())
                 .setUsername(savedUser.getUsername())
                 .setPassword(savedUser.getPassword())
                 .setEmail(savedUser.getEmail())
-                .setScore(score)
+                .setPoints(points)
                 .build();
     }
 
@@ -46,18 +46,18 @@ public class UserServiceDatabase implements UserService {
 
         existingUser.setUsername(payload.getUsername());
         existingUser.setPassword(payload.getPassword());
-        existingUser.setScore(payload.getScore());
+        existingUser.setPoints(payload.getPoints());
 
         User updatedUser = userRepository.save(existingUser);
 
-        double score = updatedUser.getScore() != null ? updatedUser.getScore() : 0.0;
+        int points = updatedUser.getPoints() != null ? updatedUser.getPoints() : 0;
 
         return Sep3.UserProto.newBuilder()
                 .setId(updatedUser.getId())
                 .setUsername(updatedUser.getUsername())
                 .setPassword(updatedUser.getPassword())
                 .setEmail(updatedUser.getEmail())
-                .setScore(score)
+                .setPoints(points)
                 .build();
     }
 
@@ -66,14 +66,14 @@ public class UserServiceDatabase implements UserService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new Exception("User with given email does not exist " + email));
 
-        double score = user.getScore() != null ? user.getScore() : 0.0;
+        int points = user.getPoints() != null ? user.getPoints() : 0;
 
         return Sep3.UserProto.newBuilder()
                 .setId(user.getId())
                 .setUsername(user.getUsername())
                 .setPassword(user.getPassword())
                 .setEmail(user.getEmail())
-                .setScore(score)
+                .setPoints(points)
                 .build();
     }
 
@@ -89,7 +89,7 @@ public class UserServiceDatabase implements UserService {
         Sep3.UserListProto.Builder builder = Sep3.UserListProto.newBuilder();
 
         users.forEach(user -> {
-            double  score = user.getScore() != null ? user.getScore() : 0.0;
+            int points = user.getPoints() != null ? user.getPoints() : 0;
 
             builder.addUsers(
                     Sep3.UserProto.newBuilder()
@@ -97,7 +97,7 @@ public class UserServiceDatabase implements UserService {
                             .setUsername(user.getUsername())
                             .setPassword(user.getPassword())
                             .setEmail(user.getEmail())
-                            .setScore(score)
+                            .setPoints(points)
                             .build()
             );
         });

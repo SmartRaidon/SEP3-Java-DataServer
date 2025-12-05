@@ -26,7 +26,6 @@ public class Sep3JavaDataServerApplication
     //ApplicationContext context = SpringApplication.run(Sep3JavaDataServerApplication.class, args);
 
       System.out.println(Sep3.UserProto.getDescriptor().getFullName()); //for getting full proto type, BloomRoc
-      System.out.println(Sep3.GameResultProto.getDescriptor().getFullName());
 
       UserRepository userRepository = GlobalContext.getBean(UserRepository.class);
     SepServer server = GlobalContext.getContext().getBean(SepServer.class);

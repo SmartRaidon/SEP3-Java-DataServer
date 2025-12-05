@@ -23,7 +23,6 @@ public class MainHandler extends homogeniousServiceGrpc.homogeniousServiceImplBa
     public void handleRequest(Sep3.Request request, StreamObserver<Sep3.Response> responseObserver) {
         NetworkHandler handler = switch (request.getHandler()) {
             case HANDLER_USER -> serviceProvider.getUserHandler();
-            case HANDLER_GAME_RESULT -> serviceProvider.getGameResultHandler();
             default -> throw new IllegalArgumentException("Unknown handler type " + request.getHandler());
         };
 
@@ -33,7 +32,6 @@ public class MainHandler extends homogeniousServiceGrpc.homogeniousServiceImplBa
             Message payload = switch (request.getHandler()) {
                 //unpack to concrete type that the handler expects
                 case HANDLER_USER -> request.getPayload().unpack(Sep3.UserProto.class);
-                case HANDLER_GAME_RESULT -> request.getPayload().unpack(Sep3.GameResultProto.class);
                 default -> request.getPayload();
             };
 

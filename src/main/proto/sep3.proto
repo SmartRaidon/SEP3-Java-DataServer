@@ -9,23 +9,11 @@ message UserProto{
   string username =2;
   string password =3;
   string email =4;
-  double score = 5;
+  int32 points = 5;
 }
 
 message UserListProto{
   repeated UserProto users = 1;
-}
-
-message GameResultProto{
-  int32 id = 1;
-  int32 gameId = 2;
-  int32 winnerId = 3;
-  int32 looserId = 4;
-  bool isDraw = 5;
-}
-
-message GameResultListProto{
-repeated GameResultProto gameResults = 1;
 }
 
 message Request
@@ -42,8 +30,7 @@ message Response
 enum HandlerType
 {
   HANDLER_UNKNOWN = 0;
-  HANDLER_USER = 1; //maybe maybe
-  HANDLER_GAME_RESULT = 2;
+  HANDLER_USER = 1;
 }
 
 enum ActionType

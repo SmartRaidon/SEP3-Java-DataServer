@@ -1,11 +1,8 @@
 package dk.via.dataserver.startup;
 
-import dk.via.dataserver.networking.handler.GameResultHandler;
 import dk.via.dataserver.networking.handler.NetworkHandler;
 import dk.via.dataserver.networking.handler.UserHandler;
-import dk.via.dataserver.repository.GameResultRepository;
 import dk.via.dataserver.repository.UserRepository;
-import dk.via.dataserver.services.GameResultServiceDatabase;
 import dk.via.dataserver.services.UserServiceDatabase;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -23,13 +20,5 @@ public class ServiceProvider {
     }
     public NetworkHandler getUserHandler() {
         return new UserHandler(getUserService());
-    }
-
-    public GameResultServiceDatabase getGameResultService() {
-        return new GameResultServiceDatabase(context.getBean(GameResultRepository.class));
-    }
-
-    public NetworkHandler getGameResultHandler() {
-        return new GameResultHandler(getGameResultService());
     }
 }
