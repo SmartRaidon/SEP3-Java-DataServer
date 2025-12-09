@@ -41,11 +41,14 @@ public class UserServiceDatabase implements UserService {
 
     @Transactional
     public Sep3.UserProto update(Sep3.UserProto payload)  {
-        User existingUser = userRepository.findByUsername(
-                payload.getUsername()).orElseThrow(() -> new RuntimeException("Username not found"));
+
+        User existingUser = userRepository.findById(payload.getId())
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + payload.getId()));
+
 
         existingUser.setUsername(payload.getUsername());
         existingUser.setPassword(payload.getPassword());
+        existingUser.setEmail(payload.getEmail());
         existingUser.setPoints(payload.getPoints());
 
         User updatedUser = userRepository.save(existingUser);
