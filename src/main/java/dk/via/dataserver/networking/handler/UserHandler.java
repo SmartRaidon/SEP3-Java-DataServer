@@ -36,6 +36,9 @@ public class UserHandler implements NetworkHandler {
             case Sep3.ActionType.ACTION_LIST -> {
                 proto = userService.getAll();
             }
+            case Sep3.ActionType.ACTION_TOP10 -> {
+                proto = userService.getTop10Players();
+            }
             default -> {
                 throw new IllegalArgumentException("Invalid action type: " + actionType);
         }
