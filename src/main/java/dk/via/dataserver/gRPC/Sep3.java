@@ -24,17 +24,9 @@ public final class Sep3 {
      */
     HANDLER_UNKNOWN(0),
     /**
-     * <pre>
-     *maybe maybe
-     * </pre>
-     *
      * <code>HANDLER_USER = 1;</code>
      */
     HANDLER_USER(1),
-    /**
-     * <code>HANDLER_GAME_RESULT = 2;</code>
-     */
-    HANDLER_GAME_RESULT(2),
     UNRECOGNIZED(-1),
     ;
 
@@ -43,17 +35,9 @@ public final class Sep3 {
      */
     public static final int HANDLER_UNKNOWN_VALUE = 0;
     /**
-     * <pre>
-     *maybe maybe
-     * </pre>
-     *
      * <code>HANDLER_USER = 1;</code>
      */
     public static final int HANDLER_USER_VALUE = 1;
-    /**
-     * <code>HANDLER_GAME_RESULT = 2;</code>
-     */
-    public static final int HANDLER_GAME_RESULT_VALUE = 2;
 
 
     public final int getNumber() {
@@ -82,7 +66,6 @@ public final class Sep3 {
       switch (value) {
         case 0: return HANDLER_UNKNOWN;
         case 1: return HANDLER_USER;
-        case 2: return HANDLER_GAME_RESULT;
         default: return null;
       }
     }
@@ -3822,17 +3805,16 @@ public final class Sep3 {
       "google.protobuf.Any\"e\n\010Response\0222\n\006statu" +
       "s\030\001 \001(\0162\".dk.via.dataserver.gRPC.StatusT" +
       "ype\022%\n\007payload\030\002 \001(\0132\024.google.protobuf.A" +
-      "ny*M\n\013HandlerType\022\023\n\017HANDLER_UNKNOWN\020\000\022\020" +
-      "\n\014HANDLER_USER\020\001\022\027\n\023HANDLER_GAME_RESULT\020" +
-      "\002*z\n\nActionType\022\022\n\016ACTION_UNKNOWN\020\000\022\021\n\rA" +
-      "CTION_CREATE\020\001\022\016\n\nACTION_GET\020\002\022\021\n\rACTION" +
-      "_UPDATE\020\003\022\021\n\rACTION_DELETE\020\004\022\017\n\013ACTION_L" +
-      "IST\020\005*]\n\nStatusType\022\022\n\016STATUS_UNKNOWN\020\000\022" +
-      "\r\n\tSTATUS_OK\020\001\022\020\n\014STATUS_ERROR\020\002\022\032\n\026STAT" +
-      "US_INVALID_PAYLOAD\020\0032h\n\022homogeniousServi" +
-      "ce\022R\n\rhandleRequest\022\037.dk.via.dataserver." +
-      "gRPC.Request\032 .dk.via.dataserver.gRPC.Re" +
-      "sponseb\006proto3"
+      "ny*4\n\013HandlerType\022\023\n\017HANDLER_UNKNOWN\020\000\022\020" +
+      "\n\014HANDLER_USER\020\001*z\n\nActionType\022\022\n\016ACTION" +
+      "_UNKNOWN\020\000\022\021\n\rACTION_CREATE\020\001\022\016\n\nACTION_" +
+      "GET\020\002\022\021\n\rACTION_UPDATE\020\003\022\021\n\rACTION_DELET" +
+      "E\020\004\022\017\n\013ACTION_LIST\020\005*]\n\nStatusType\022\022\n\016ST" +
+      "ATUS_UNKNOWN\020\000\022\r\n\tSTATUS_OK\020\001\022\020\n\014STATUS_" +
+      "ERROR\020\002\022\032\n\026STATUS_INVALID_PAYLOAD\020\0032h\n\022h" +
+      "omogeniousService\022R\n\rhandleRequest\022\037.dk." +
+      "via.dataserver.gRPC.Request\032 .dk.via.dat" +
+      "aserver.gRPC.Responseb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

@@ -2,6 +2,7 @@ package dk.via.dataserver.networking.handler;
 
 import com.google.protobuf.Any;
 import com.google.protobuf.Message;
+import dk.via.dataserver.entity.User;
 import dk.via.dataserver.gRPC.Sep3;
 import dk.via.dataserver.services.UserService;
 
@@ -56,11 +57,14 @@ public class UserHandler implements NetworkHandler {
         if (!request.getEmail().isEmpty()) {
             return userService.getSingle(request.getEmail());
         }
-        else{
-            throw new IllegalArgumentException("Must provide email for ACTION_GET.");
+        // Check if ID is provided
+        else if (request.getId() != 0) {
+            return userService.getSingleById(request.getId());
+        }
+        else {
+            throw new IllegalArgumentException("Must provide either email or ID for ACTION_GET.");
         }
     }
-
 
 
 }

@@ -60,7 +60,21 @@ public class UserServiceDatabase implements UserService {
                 .setPoints(points)
                 .build();
     }
+    @Override
+    public Sep3.UserProto getSingleById(int id) throws Exception {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new Exception("User with given id does not exist " + id));
 
+        int points = user.getPoints() != null ? user.getPoints() : 0;
+
+        return Sep3.UserProto.newBuilder()
+                .setId(user.getId())
+                .setUsername(user.getUsername())
+                .setPassword(user.getPassword())
+                .setEmail(user.getEmail())
+                .setPoints(points)
+                .build();
+    }
     @Override
     public Sep3.UserProto getSingle(String email) throws Exception {
         User user = userRepository.findByEmail(email)
@@ -104,5 +118,8 @@ public class UserServiceDatabase implements UserService {
 
         return builder.build();
     }
+
+
+
 }
 

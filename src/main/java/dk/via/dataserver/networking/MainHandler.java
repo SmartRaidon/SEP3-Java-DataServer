@@ -62,7 +62,7 @@ public class MainHandler extends homogeniousServiceGrpc.homogeniousServiceImplBa
     private void sendResponseWithHandleException(StreamObserver<Sep3.Response> responseObserver, Sep3.Response response) {
         try {
             responseObserver.onNext(response);//send the response to the server
-            responseObserver.onCompleted();//and move on on completed
+            responseObserver.onCompleted();//and move  on completed
             //if exception send errors
         } catch (ClassCastException e) {
             sendGrpcError(responseObserver, Sep3.StatusType.STATUS_INVALID_PAYLOAD, "Invalid request");
