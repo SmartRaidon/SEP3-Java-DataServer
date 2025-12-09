@@ -4,10 +4,10 @@ SET SCHEMA 'sep3';
 DROP SCHEMA sep3 CASCADE;
 
 CREATE TABLE IF NOT EXISTS users(
-    id SERIAL PRIMARY KEY ,
-    username VARCHAR (30) NOT NULL UNIQUE ,
-    password VARCHAR (50) NOT NULL ,
-    email TEXT NOT NULL UNIQUE ,
+    id SERIAL PRIMARY KEY,
+    username VARCHAR (30) NOT NULL,
+    password VARCHAR (50) NOT NULL,
+    email TEXT NOT NULL UNIQUE,
     points INTEGER
     );
 

@@ -119,6 +119,28 @@ public class UserServiceDatabase implements UserService {
         return builder.build();
     }
 
+    @Override
+    public Sep3.UserListProto getTop10Players() {
+        List<User> users = userRepository.findTop10ByOrderByPointsDesc();
+
+        Sep3.UserListProto.Builder builder = Sep3.UserListProto.newBuilder();
+
+        users.forEach(user -> {
+            int points = user.getPoints() != null ? user.getPoints() : 0;
+
+            builder.addUsers(
+                    Sep3.UserProto.newBuilder()
+                            .setId(user.getId())
+                            .setUsername(user.getUsername())
+                            .setPassword(user.getPassword())
+                            .setEmail(user.getEmail())
+                            .setPoints(points)
+                            .build()
+            );
+        });
+
+        return builder.build();
+    }
 
 
 }

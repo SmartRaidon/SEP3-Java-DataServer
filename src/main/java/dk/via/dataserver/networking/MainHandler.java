@@ -21,27 +21,28 @@ public class MainHandler extends homogeniousServiceGrpc.homogeniousServiceImplBa
 
     @Override
     public void handleRequest(Sep3.Request request, StreamObserver<Sep3.Response> responseObserver) {
-        NetworkHandler handler = switch (request.getHandler()) {
-            case HANDLER_USER -> serviceProvider.getUserHandler();
-            default -> throw new IllegalArgumentException("Unknown handler type " + request.getHandler());
-        };
+
+        //validate handler type
+        if (request.getHandler() != Sep3.HandlerType.HANDLER_USER) {
+            sendGrpcError(responseObserver, Sep3.StatusType.STATUS_ERROR,
+                    "Unknown handler type " + request.getHandler()
+            );
+            return;
+        }
+        //get the handler
+        NetworkHandler handler = serviceProvider.getUserHandler();
 
         Message result;
         try {
-            //unpack payload
-            Message payload = switch (request.getHandler()) {
-                //unpack to concrete type that the handler expects
-                case HANDLER_USER -> request.getPayload().unpack(Sep3.UserProto.class);
-                default -> request.getPayload();
-            };
+            Sep3.UserProto payload = request.getPayload().unpack(Sep3.UserProto.class);
 
+            //delegate to handler
             result = handler.handle(request.getAction(), payload);
 
-            //against null handlers
             if (result == null) {
-                sendGrpcError(responseObserver,
-                        Sep3.StatusType.STATUS_ERROR,
-                        "Handler returned no payload for action " + request.getAction());
+                sendGrpcError(responseObserver, Sep3.StatusType.STATUS_ERROR,
+                        "Handler returned no payload for action " + request.getAction()
+                );
                 return;
             }
 
@@ -57,6 +58,7 @@ public class MainHandler extends homogeniousServiceGrpc.homogeniousServiceImplBa
 
         sendResponseWithHandleException(responseObserver, response);
     }
+
 
 
     private void sendResponseWithHandleException(StreamObserver<Sep3.Response> responseObserver, Sep3.Response response) {

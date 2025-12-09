@@ -15,4 +15,5 @@ public interface UserService {
 
     Sep3.UserListProto getAll();
 
+    Sep3.UserListProto getTop10Players();
 }
