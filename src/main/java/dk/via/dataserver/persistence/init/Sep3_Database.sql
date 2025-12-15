@@ -11,6 +11,8 @@ CREATE TABLE IF NOT EXISTS users(
     points INTEGER
     );
 
+delete from users where id = 1;
+
 drop table users;
 
 INSERT INTO users(username, password, email) VALUES ('example','example123','email@example.com');
