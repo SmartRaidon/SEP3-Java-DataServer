@@ -35,7 +35,7 @@ import static org.mockito.Mockito.*;
     return u;
   }
   @Test
-  @DisplayName("Z: getAll() with zero users returns empty list")
+  @DisplayName("Z:  zero users returns empty list")
   public void z_getAll_zero() {
     when(userRepository.findAll()).thenReturn(List.of());
     Sep3.UserListProto out = service.getAll();
@@ -43,7 +43,7 @@ import static org.mockito.Mockito.*;
   }
 
   @Test
-  @DisplayName("O: getAll() with one user returns exactly one user")
+  @DisplayName("O: one user returns exactly one user")
   public void o_getAll_one() {
     User u = testUser(1, "oneUserTest", "one@x.com", 77);
     when(userRepository.findAll()).thenReturn(List.of(u));
@@ -54,14 +54,14 @@ import static org.mockito.Mockito.*;
   }
 
   @Test
-  @DisplayName("M: getAll() with many users returns all users correctly")
+  @DisplayName("M:  many users returns all users correctly")
   public void m_getAll_many() {
     List<User> users = new ArrayList<>();
-    users.add(testUser(1, "userBlackBoxTest1", "user1@test.com", 100));
-    users.add(testUser(2, "userBlackBoxTest12", "user2@test.com", 200));
-    users.add(testUser(3, "userBlackBoxTest13", "user3@test.com", 300));
-    users.add(testUser(4, "userBlackBoxTest14", "user4@test.com", 400));
-    users.add(testUser(5, "userBlackBoxTest15", "user5@test.com", 500));
+    users.add(testUser(1, "userUnitTest1", "user1@test.com", 100));
+    users.add(testUser(2, "userUnitTest12", "user2@test.com", 200));
+    users.add(testUser(3, "userUnitTest13", "user3@test.com", 300));
+    users.add(testUser(4, "userUnitTest14", "user4@test.com", 400));
+    users.add(testUser(5, "userUnitTest15", "user5@test.com", 500));
 
     when(userRepository.findAll()).thenReturn(users);
     Sep3.UserListProto out = service.getAll();
@@ -70,16 +70,16 @@ import static org.mockito.Mockito.*;
     assertThat(out.getUsersList())
             .extracting(Sep3.UserProto::getUsername)
             .containsExactlyInAnyOrder(
-                    "userBlackBoxTest1",
-                    "userBlackBoxTest12",
-                    "userBlackBoxTest13",
-                    "userBlackBoxTest14",
-                    "userBlackBoxTest15"
+                    "userUnitTest1",
+                    "userUnitTest12",
+                    "userUnitTest13",
+                    "userUnitTest14",
+                    "userUnitTest15"
             );
   }
 
   @Test
-  @DisplayName("B: getAll() with different payload sizes - 1, 10, 100, 1000 users")
+  @DisplayName("B: with different payload sizes - 1, 10, 100, 1000 users")
   public void b_getAll_variousSizes() {
     int[] sizes = {1, 10, 100, 1000};
 
@@ -94,7 +94,7 @@ import static org.mockito.Mockito.*;
     }
   }
   @Test
-  @DisplayName("E: getAll() Null Username ")
+  @DisplayName("E:  Null Username ")
   public void e_getAll_nullUsername() {
 
     Sep3.UserProto payload = Sep3.UserProto.newBuilder()
@@ -106,7 +106,7 @@ import static org.mockito.Mockito.*;
     assertNotNull(exception);
   }
   @Test
-  @DisplayName("E: getAll() Null email ")
+  @DisplayName("E:  Null email ")
   public void e_getAll_nullEmail() {
 
     Sep3.UserProto payload = Sep3.UserProto.newBuilder()
@@ -119,7 +119,7 @@ import static org.mockito.Mockito.*;
   }
 
   @Test
-  @DisplayName("E: getAll() Null Password ")
+  @DisplayName("E:  Null Password ")
   public void e_getAll_nullPassword() {
 
     Sep3.UserProto payload = Sep3.UserProto.newBuilder()
@@ -131,6 +131,17 @@ import static org.mockito.Mockito.*;
     assertNotNull(exception);
   }
 
-
+  @Test
+  @DisplayName("E: with null user object in list throws NullPointerException")
+  void e_getAll_nullUserObject() {
+    List<User> users = new ArrayList<>();
+    users.add(testUser(1, "userTest1", "user1@test.com", 100));
+    users.add(null);
+    users.add(testUser(3, "userTest3", "user3@test.com", 300));
+    when(userRepository.findAll()).thenReturn(users);
+    NullPointerException exception = assertThrows(NullPointerException.class,
+            () -> service.getAll());
+    assertNotNull(exception);
+  }
 
 }
