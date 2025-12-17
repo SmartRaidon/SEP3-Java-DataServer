@@ -98,8 +98,33 @@ import static org.mockito.Mockito.*;
   public void e_getAll_nullUsername() {
 
     Sep3.UserProto payload = Sep3.UserProto.newBuilder()
-            .setPassword("password")
+            .setPassword("password123456677")
             .setEmail("null@test.com")
+            .build();
+
+    Exception exception = assertThrows(Exception.class, () -> service.create(payload));
+    assertNotNull(exception);
+  }
+  @Test
+  @DisplayName("E: getAll() Null Username ")
+  public void e_getAll_nullEmail() {
+
+    Sep3.UserProto payload = Sep3.UserProto.newBuilder()
+            .setUsername("testUserWithoutEmail")
+            .setPassword("password123456677")
+            .build();
+
+    Exception exception = assertThrows(Exception.class, () -> service.create(payload));
+    assertNotNull(exception);
+  }
+
+  @Test
+  @DisplayName("E: getAll() Null Username ")
+  public void e_getAll_nullPassword() {
+
+    Sep3.UserProto payload = Sep3.UserProto.newBuilder()
+            .setUsername("testUserWithoutEmail")
+            .setEmail("email@tester.com")
             .build();
 
     Exception exception = assertThrows(Exception.class, () -> service.create(payload));
