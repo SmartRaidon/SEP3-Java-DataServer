@@ -106,7 +106,7 @@ import static org.mockito.Mockito.*;
     assertNotNull(exception);
   }
   @Test
-  @DisplayName("E: getAll() Null Username ")
+  @DisplayName("E: getAll() Null email ")
   public void e_getAll_nullEmail() {
 
     Sep3.UserProto payload = Sep3.UserProto.newBuilder()
@@ -119,7 +119,7 @@ import static org.mockito.Mockito.*;
   }
 
   @Test
-  @DisplayName("E: getAll() Null Username ")
+  @DisplayName("E: getAll() Null Password ")
   public void e_getAll_nullPassword() {
 
     Sep3.UserProto payload = Sep3.UserProto.newBuilder()
