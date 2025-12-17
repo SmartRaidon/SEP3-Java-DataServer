@@ -171,7 +171,6 @@ import static org.mockito.Mockito.*;
     users.add(testUser(3, "thirdTestUser", "third@test.com", 500));
     when(userRepository.findTop10ByOrderByPointsDesc()).thenReturn(users);
     Sep3.UserListProto result = service.getTop10Players();
-    // All tied users should be included
     assertEquals(3, result.getUsersCount());
     assertEquals(500, result.getUsers(0).getPoints());
     assertEquals(500, result.getUsers(1).getPoints());
