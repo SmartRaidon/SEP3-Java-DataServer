@@ -93,6 +93,7 @@ import static org.mockito.Mockito.*;
       assertEquals(size, result.getUsersCount(), "Expected " + size + " users");
     }
   }
+
   @Test
   @DisplayName("E:  Null Username ")
   public void e_getAll_nullUsername() {
@@ -143,5 +144,40 @@ import static org.mockito.Mockito.*;
             () -> service.getAll());
     assertNotNull(exception);
   }
+
+
+  // Based on Register use case: system verifies credentials
+  @Test
+  @DisplayName("E: invalid email format throws exception")
+  void e_create_invalidEmailFormat() {
+  Sep3.UserProto payload = Sep3.UserProto.newBuilder()
+          .setUsername("validuser")
+          .setPassword("password123")
+          .setEmail("invalidemail")  // No @ symbol
+          .build();
+
+  Exception exception = assertThrows(Exception.class, () -> service.create(payload));
+  assertNotNull(exception);
+}
+
+  // Based on Check stats use case: retrieves top 10 by score
+
+  @Test
+  @DisplayName("E: users having same points")
+  void e_getTop10_tiedScores() {
+    List<User> users = new ArrayList<>();
+    users.add(testUser(1, "firstTestUser", "first@test.com", 500));
+    users.add(testUser(2, "secondTestUser", "second@test.com", 500));
+    users.add(testUser(3, "thirdTestUser", "third@test.com", 500));
+    when(userRepository.findTop10ByOrderByPointsDesc()).thenReturn(users);
+    Sep3.UserListProto result = service.getTop10Players();
+    // All tied users should be included
+    assertEquals(3, result.getUsersCount());
+    assertEquals(500, result.getUsers(0).getPoints());
+    assertEquals(500, result.getUsers(1).getPoints());
+    assertEquals(500, result.getUsers(2).getPoints());
+  }
+
+
 
 }
