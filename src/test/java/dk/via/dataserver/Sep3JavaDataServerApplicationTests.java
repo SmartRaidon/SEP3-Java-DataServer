@@ -13,12 +13,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest  class Sep3JavaDataServerApplicationTests
+@SpringBootTest class Sep3JavaDataServerApplicationTests
 {
   @Mock
   private UserRepository userRepository;
@@ -95,20 +94,16 @@ import static org.mockito.Mockito.*;
     }
   }
   @Test
-  @DisplayName("E: getAll() with all users having null points ")
-  void e_getAll_allNullPoints() {
-    List<User> users = new ArrayList<>();
-    users.add(testUser(1, "nulluser1", "null1@test.com", null));
-    users.add(testUser(2, "nulluser2", "null2@test.com", null));
-    users.add(testUser(3, "nulluser3", "null3@test.com", null));
+  @DisplayName("E: getAll() Null Username ")
+  public void e_getAll_nullUsername() {
 
-    when(userRepository.findAll()).thenReturn(users);
-    Sep3.UserListProto result = service.getAll();
+    Sep3.UserProto payload = Sep3.UserProto.newBuilder()
+            .setPassword("password")
+            .setEmail("null@test.com")
+            .build();
 
-    assertEquals(3, result.getUsersCount());
-    for (int i = 0; i < 3; i++) {
-      assertEquals(0, result.getUsers(i).getPoints());
-    }
+    Exception exception = assertThrows(Exception.class, () -> service.create(payload));
+    assertNotNull(exception);
   }
 
 
