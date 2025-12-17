@@ -28,7 +28,6 @@ public class User {
         this.username = username;
     }
 
-
     public String getUsername() {
         return username;
     }

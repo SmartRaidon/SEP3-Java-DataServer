@@ -24,7 +24,6 @@ public class UserServiceDatabase implements UserService {
         user.setPassword(payload.getPassword());
         user.setEmail(payload.getEmail());
         user.setPoints(payload.getPoints());
-
         User savedUser = userRepository.save(user);
 
         //in the case dbs still return null
