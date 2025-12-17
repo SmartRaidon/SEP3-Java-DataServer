@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest @TestInstance(TestInstance.Lifecycle.PER_CLASS) class Sep3JavaDataServerApplicationTests
+@SpringBootTest  class Sep3JavaDataServerApplicationTests
 {
   @Mock
   private UserRepository userRepository;
